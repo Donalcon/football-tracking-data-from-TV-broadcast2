@@ -1,3 +1,16 @@
 venv/
 __pycache__/
 Detect_and_Track/yoloV5/__pycache__/
+.vscode/
+
+# Data file in the Data folder
+Data/**/*.mp4
+Data/**/*.mkv
+
+# output files in the Out folder
+Out/*.mp4
+Out/*.csv
+Out/*.png
+
+# Pre-trained weights for 2D projection
+projection_2D/pretrained_weights/*
