@@ -77,7 +77,7 @@ def apply_projection_matrix(matrix, pointX, pointY):
 
 
 
-def create_MappingDataFrame(df, video_path, pitch_path = './projection_2D/data/pitch_template.png', viz = False): 
+def create_MappingDataFrame(df, video_path, pitch_path = './projection_2D/data/pitch_template.png', viz = False, sample_step=30): 
     '''
     this functions is to create the finial tracking data dataframe
 
@@ -90,7 +90,9 @@ def create_MappingDataFrame(df, video_path, pitch_path = './projection_2D/data/p
     pitch_path : string
         the path of the directory of the pitch image to map into. 
     viz : boolen
-        whether or not to show the mapping frame by frame while processing .     
+        whether or not to show the mapping frame by frame while processing .
+    sample_step: int
+        the reciprocal of the sample rate, thus meaning how many frames per frame is sampled
 
     Return
     ----------
@@ -103,7 +105,7 @@ def create_MappingDataFrame(df, video_path, pitch_path = './projection_2D/data/p
     print(f'length of the dataframe to map: {len(df)}') 
     print(f'length of frames: {len(frames)}') 
 
-    df = df[df['frame'] % 6 == 0]
+    df = df[df['frame'] % sample_step == 0]
 
     frames_idx = df['frame'].unique().tolist()
     print(f'frames to map: {frames_idx}')

@@ -34,16 +34,20 @@ def visualize_overlaying(frame_draw, pitch_path, model):
     # warp template image with optimized guess
     warped_tmp_optim = warp_image(pitch_draw, model, out_shape=outshape)[0]
     warped_tmp_optim = torch_img_to_np_img(warped_tmp_optim)
+    plt.clf()
     plt.imshow(warped_tmp_optim)
-    plt.show()
+    # plt.show()
+    plt.savefig('Out/visualize-overlay.png')
 
     # show optimized guess overlay
     show_image = np.copy(frame_draw)
     valid_index = warped_tmp_optim[:, :, 0] > 0.0
     overlay = (frame_draw[valid_index].astype('float32') + warped_tmp_optim[valid_index].astype('float32'))/2
     show_image[valid_index] = overlay
+    plt.clf()
     plt.imshow(show_image)
-    plt.show()
+    # plt.show()
+    plt.savefig('Out/visualize-overlay-optimized.png')
 
 
 def visualize_mapping(img, pitch_path, df, mapped_df, annotation = True):  
@@ -66,6 +70,7 @@ def visualize_mapping(img, pitch_path, df, mapped_df, annotation = True):
 
     img = cv2.resize(img,(1280,720))
     plt.figure(figsize=(12, 8))
+    plt.clf()
     plt.imshow(img)
     for i in range(len(df)):
         if df.iloc[i,4] == 'Ball':
@@ -74,7 +79,8 @@ def visualize_mapping(img, pitch_path, df, mapped_df, annotation = True):
             plt.scatter(df.iloc[i,2], df.iloc[i,3], s= 75, c = df.iloc[i,5])
             if annotation:
                 plt.annotate('ID: '+str(df.iloc[i][1]), (df.iloc[i][2] + 8, df.iloc[i][3] + 8), fontsize=14)  
-    plt.show() 
+    # plt.show()
+    plt.savefig('Out/visualize-mapping.png')
 
     # overload template image
     pitch_draw = imageio.imread(pitch_path, pilmode='RGB')
@@ -82,6 +88,7 @@ def visualize_mapping(img, pitch_path, df, mapped_df, annotation = True):
     pitch_draw = pitch_draw / 255.0
     pitch_draw = np_img_to_torch_img(pitch_draw)
     plt.figure(figsize=(12, 8))
+    plt.clf()
     plt.imshow(torch_img_to_np_img(pitch_draw)*0.5)
     for i in range(len(mapped_df)):
         if mapped_df.iloc[i,4] == 'Ball':
@@ -92,4 +99,5 @@ def visualize_mapping(img, pitch_path, df, mapped_df, annotation = True):
             plt.scatter(mapped_df.iloc[i][2], mapped_df.iloc[i][3], s= 75, c=mapped_df.iloc[i][5])
             if annotation:
                 plt.annotate('ID: '+str(mapped_df.iloc[i][1]), (mapped_df.iloc[i][2] + 10, mapped_df.iloc[i][3] + 10), fontsize=14)   
-    plt.show()
+    # plt.show()
+    plt.savefig('Out/visualize-mapping-overload.png')
