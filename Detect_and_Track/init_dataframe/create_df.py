@@ -58,14 +58,18 @@ def creatInitDataFrame(tracks, frames, frame_colors = None):
       if obj.tolist() == []:
         print(f'frame_idx {frame_idx}')
         print(f'track {track}')
-        obj = frames[frame_idx][y2:y1 , x2:x1, :] 
+        obj = frames[frame_idx][y2:y1+1 , x2:x1+1, :] 
 
       # frame_colors = [def, def goalkeeper, att, att goalkeeper, ref, ball]
-      if track[5] == 32:
-        colors.append(frame_colors[-1])
-      else:        
-        color = classify_teams(obj, frame_colors[:-1])
-        colors.append(color)   
+      try:
+        if track[5] == 32:
+          colors.append(frame_colors[-1])
+        else:        
+          color = classify_teams(obj, frame_colors[:-1])
+          colors.append(color)
+      except Exception as e:
+        print(obj)
+        raise e
 
   data = {'frame':frame_list,
         'ID':ID,

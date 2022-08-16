@@ -22,7 +22,7 @@ def make_tracking_video(frames, tboxes, output_path, fps, draw = True):
       whether or not to draw the  bounding boxes.
   '''
 
-  codec = cv2.VideoWriter_fourcc(*'XVID')
+  codec = cv2.VideoWriter_fourcc(*'mp4v')
   out = cv2.VideoWriter(output_path, codec, fps, (1280,720)) # output_path must be .mp4
   times= []
   for frame, tracked_bboxes in zip(frames, tboxes):

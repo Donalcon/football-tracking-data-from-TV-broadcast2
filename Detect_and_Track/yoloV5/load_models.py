@@ -12,10 +12,10 @@ def yoloV5l():
          pytorch YoloV5l model to detect the ball specifically.   
     '''
 
-    modeli = torch.hub.load('ultralytics/yolov5', 'yolov5l')  
+    modeli = torch.hub.load('/home/zbw/.cache/torch/hub/ultralytics_yolov5_master', 'custom', path='/home/zbw/.cache/torch/hub/ultralytics_yolov5_master/yolov5l.pt', source='local')  
     modeli.classes = [0,32]
 
-    ball_model = torch.hub.load('ultralytics/yolov5', 'yolov5l')  
+    ball_model = torch.hub.load('/home/zbw/.cache/torch/hub/ultralytics_yolov5_master', 'custom', path='/home/zbw/.cache/torch/hub/ultralytics_yolov5_master/yolov5l.pt', source='local')  
     ball_model.classes = [32]
     ball_model.conf = 0.15
     ball_model.max_det  = 1
